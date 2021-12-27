@@ -44,7 +44,32 @@
     </div>
   </aside>
   <!-- CONTENIDO CENTRAL -->
-
+  <div id="central">
+    <div class="product">
+      <img src="assets/img/camiseta.png" alt="producto">
+      <h2>Camiseta Azul Ancha</h2>
+      <p>30 euros</p>
+      <a href="">Comprar</a>
+    </div>
+  </div>
+  
+  <div id="central">
+    <div class="product">
+      <img src="assets/img/camiseta.png" alt="producto">
+      <h2>Camiseta Azul Ancha</h2>
+      <p>30 euros</p>
+      <a href="">Comprar</a>
+    </div>
+  </div>
+  
+  <div id="central">
+    <div class="product">
+      <img src="assets/img/camiseta.png" alt="producto">
+      <h2>Camiseta Azul Ancha</h2>
+      <p>30 euros</p>
+      <a href="">Comprar</a>
+    </div>
+  </div>
   <!-- PIE DE PAGINA -->
 </body>
 </html>
