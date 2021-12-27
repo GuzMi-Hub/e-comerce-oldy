@@ -28,8 +28,9 @@
     </ul>
   </nav>
   <!-- BARRA LATERAL -->
-  <aside>
+  <aside id="lateral">
     <div id="login" class="block_aside">
+      <h3>Entrar a la web</h3>
       <form action="" method="post">
         <label for="email">Email</label>
         <input type="email" name="email">
@@ -38,10 +39,12 @@
         <input type="submit" value="Enviar">
       </form>
 
-      <a href="">Mis pedidos</a>
-      <a href="">Gestionar pedidos</a>
-      <a href="">Gestionar categorias</a>
-    </div>
+      <ul>
+        <li><a href="">Mis pedidos</a></li>
+        <li><a href="">Gestionar pedidos</a></li>
+        <li><a href="">Gestionar categorias</a></li>
+      </ul>
+      </div>
   </aside>
   <!-- CONTENIDO CENTRAL -->
 
