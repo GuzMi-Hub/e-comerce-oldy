@@ -12,16 +12,22 @@ class usuarioController{
 
   public function save(){
     if(isset($_POST)){
-      $usuario = new Usuario();
-      $usuario->setNombre($_POST['nombre']);
-      $usuario->setApellidos($_POST['apellidos']);
-      $usuario->setEmail($_POST['email']);
-      $usuario->setPassword($_POST['password']);
 
-      $saveStmt = $usuario->save();
+      if(isset($_POST['nombre'],$_POST['apellidos'],$_POST['email'],$_POST['password'])){
 
-      if($saveStmt){
-        $_SESSION['register'] = "complete";
+        $usuario = new Usuario();
+        $usuario->setNombre($_POST['nombre']);
+        $usuario->setApellidos($_POST['apellidos']);
+        $usuario->setEmail($_POST['email']);
+        $usuario->setPassword($_POST['password']);
+
+        $saveStmt = $usuario->save();
+
+        if($saveStmt){
+          $_SESSION['register'] = "complete";
+        }else{
+          $_SESSION['register'] = "failed";
+        }
       }else{
         $_SESSION['register'] = "failed";
       }
