@@ -38,7 +38,6 @@ class usuarioController{
   }
 
   public function login(){
-    if(isset($_POST)){
 
       if(isset($_POST['email'], $_POST['password'])){
 
@@ -48,18 +47,27 @@ class usuarioController{
         $verify = $usuario->login();
 
         if($verify && is_object($verify)){
-          $_SESSION['usuario'] = $verify;
-          var_dump($_SESSION['usuario']);
+          $_SESSION['identity'] = $verify;
+
+          if($_SESSION['identity']->role == 'admin'){
+            $_SESSION['admin'] = true;
+          }
         }else{
-          $_SESSION['error_login'] = 'Fallo en login';
+          $_SESSION['error_login'] = 'Identificacion fallida';
         }
       }else{
-        $_SESSION['error_login'] = 'Fallo en login';
+        $_SESSION['error_login'] = 'Identificacion fallida';
       }
-    }else{
-      $_SESSION['error_login'] = 'Fallo en login';
-      
-    }
    header("Location:".base_url);
+  }
+
+  public function logout(){
+    if(isset($_SESSION['identity'])){
+      Utils::deleteSession('identity');
+      if(isset($_SESSION['admin'])){
+        Utils::deleteSession('admin');
+      }
+    }
+    header("Location:".base_url);
   }
 }
