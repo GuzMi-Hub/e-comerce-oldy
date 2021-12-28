@@ -3,7 +3,10 @@ function app_autoloader($class){
 
 $class_rep = str_replace('\\', '/', $class);
 
-require_once 'controllers/' . $class_rep . '.php';
+$classname =  'controllers/' . $class_rep . '.php';
+if (file_exists($classname)) {
+        require $classname; 
+    }
 
 }
 
