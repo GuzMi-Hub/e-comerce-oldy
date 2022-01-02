@@ -46,15 +46,28 @@ class Category
    */
   public function setNombre($nombre)
   {
-    $this->nombre = $nombre;
+    $this->nombre = $this->db->real_escape_string($nombre);
 
     return $this;
   }
 
   public function getAll()
   {
-    $result = $this->db->query("SELECT * FROM categorias");
+    $result = $this->db->query("SELECT * FROM categorias ORDER BY id DESC");
     return $result;
+  }
+
+  public function save()
+  {
+    $sql = "INSERT INTO categorias VALUES(NULL, '{$this->getNombre()}')";
+    $save = $this->db->query($sql);
+
+    if ($save) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
 }

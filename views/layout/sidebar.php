@@ -9,11 +9,13 @@
         <label for="password">Contraseña</label>
         <input type="password" name="password">
         <input type="submit" value="Enviar">
+
       </form>
       <?php else: ?>
       <h3>Bienvenido <?=$_SESSION['identity']->nombre . " " . $_SESSION['identity']->apellidos?></h3>
       <?php endif?>
       <ul>
+        <li><a href="<?=base_url?>usuario/register">Registrarse Aqui</a></li>
         <?php if (isset($_SESSION["admin"])): ?>
           <li><a href="">Gestionar categorias</a></li>
           <li><a href="">Gestionar pedidos</a></li>
