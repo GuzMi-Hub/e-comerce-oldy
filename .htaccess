@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
 #Active rewrite
 RewriteEngine on
-ErrorDocument 404 http://localhost/curso-php-profesional/proyecto-poo/error/
+ErrorDocument 404 http://localhost/e-comerce-oldy/error/
 
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f

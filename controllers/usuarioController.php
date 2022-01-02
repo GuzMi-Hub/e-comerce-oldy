@@ -1,19 +1,23 @@
 <?php
-require_once 'models/Usuario.php';
+require_once './models/Usuario.php';
 
-class usuarioController{
-  public  function index(){
+class usuarioController
+{
+  public function index()
+  {
     echo "Controlador Usuarios, Acción index";
   }
 
-  public function register(){
+  public function register()
+  {
     require_once 'views/users/register.php';
   }
 
-  public function save(){
-    if(isset($_POST)){
+  public function save()
+  {
+    if (isset($_POST)) {
 
-      if(isset($_POST['nombre'],$_POST['apellidos'],$_POST['email'],$_POST['password'])){
+      if (isset($_POST['nombre'], $_POST['apellidos'], $_POST['email'], $_POST['password'])) {
 
         $usuario = new Usuario();
         $usuario->setNombre($_POST['nombre']);
@@ -23,51 +27,53 @@ class usuarioController{
 
         $saveStmt = $usuario->save();
 
-        if($saveStmt){
+        if ($saveStmt) {
           $_SESSION['register'] = "complete";
-        }else{
+        } else {
           $_SESSION['register'] = "failed";
         }
-      }else{
+      } else {
         $_SESSION['register'] = "failed";
       }
-    }else{
-        $_SESSION['register'] = "failed";
+    } else {
+      $_SESSION['register'] = "failed";
     }
-    header("Location:".base_url."usuario/register");
+    header("Location:" . base_url . "usuario/register");
   }
 
-  public function login(){
+  public function login()
+  {
 
-      if(isset($_POST['email'], $_POST['password'])){
+    if (isset($_POST['email'], $_POST['password'])) {
 
-        $usuario = new Usuario();
-        $usuario->setEmail($_POST['email']);
-        $usuario->setPassword($_POST['password']);
-        $verify = $usuario->login();
+      $usuario = new Usuario();
+      $usuario->setEmail($_POST['email']);
+      $usuario->setPassword($_POST['password']);
+      $verify = $usuario->login();
 
-        if($verify && is_object($verify)){
-          $_SESSION['identity'] = $verify;
+      if ($verify && is_object($verify)) {
+        $_SESSION['identity'] = $verify;
 
-          if($_SESSION['identity']->role == 'admin'){
-            $_SESSION['admin'] = true;
-          }
-        }else{
-          $_SESSION['error_login'] = 'Identificacion fallida';
+        if ($_SESSION['identity']->rol == 'admin') {
+          $_SESSION['admin'] = true;
         }
-      }else{
+      } else {
         $_SESSION['error_login'] = 'Identificacion fallida';
       }
-   header("Location:".base_url);
+    } else {
+      $_SESSION['error_login'] = 'Identificacion fallida';
+    }
+    header("Location:" . base_url);
   }
 
-  public function logout(){
-    if(isset($_SESSION['identity'])){
+  public function logout()
+  {
+    if (isset($_SESSION['identity'])) {
       Utils::deleteSession('identity');
-      if(isset($_SESSION['admin'])){
+      if (isset($_SESSION['admin'])) {
         Utils::deleteSession('admin');
       }
     }
-    header("Location:".base_url);
+    header("Location:" . base_url);
   }
 }
