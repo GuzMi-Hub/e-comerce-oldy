@@ -19,8 +19,9 @@
         <li><a href="<?=base_url?>usuario/register">Registrarse Aqui</a></li>
       <?php endif?>
       <?php if (isset($_SESSION["admin"])): ?>
+        <li><a href="<?=base_url?>producto/management">Gestionar productos</a></li>
         <li><a href="<?=base_url?>categoria/index">Gestionar categorias</a></li>
-        <li><a href="">Gestionar pedidos</a></li>
+        <li><a href="<?=base_url?>orders/management">Gestionar pedidos</a></li>
       <?php endif?>
       <?php if (isset($_SESSION['identity'])): ?>
         <li><a href="">Mis pedidos</a></li>
