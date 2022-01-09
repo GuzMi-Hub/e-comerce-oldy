@@ -48,15 +48,15 @@ class productoController
 
         $isSave = $product->save();
         if ($isSave) {
-          $_SESSION['producto'] = "complete";
+          $_SESSION['product'] = "complete";
         } else {
-          $_SESSION['producto'] = "failed";
+          $_SESSION['product'] = "failed";
         }
       } else {
-        $_SESSION['producto'] = "failed";
+        $_SESSION['product'] = "failed";
       }
     } else {
-      $_SESSION['producto'] = "failed";
+      $_SESSION['product'] = "failed";
     }
     header('Location:' . base_url . 'producto/management');
   }
