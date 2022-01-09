@@ -200,7 +200,7 @@ class Product
 
   public function save()
   {
-    $sql = "INSERT INTO productos VALUES(NULL, '{$this->getCategory_id()}','{$this->getName()}', '{$this->getDescription()}', {$this->getPrice()}, {$this->getStock()}, NULL, CURDATE(),NULL)";
+    $sql = "INSERT INTO productos VALUES(NULL, '{$this->getCategory_id()}','{$this->getName()}', '{$this->getDescription()}', {$this->getPrice()}, {$this->getStock()}, NULL, CURDATE(),'{$this->getImage()}')";
     $save = $this->db->query($sql);
 
     if ($save) {

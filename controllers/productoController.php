@@ -46,6 +46,19 @@ class productoController
         $product->setStock($stock);
         $product->setCategory_id($category);
 
+        // save image
+        $file = $_FILES['image'];
+        $filename = $file['name'];
+        $mimetype = $file['type'];
+
+        if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png") {
+          if (!is_dir("uploades/images")) {
+            mkdir("uploads/images", 0777, true);
+          }
+          move_uploaded_file($file['tmp_name'], 'uploads/images/' . $filename);
+          $product->setImage($filename);
+        }
+
         $isSave = $product->save();
         if ($isSave) {
           $_SESSION['product'] = "complete";

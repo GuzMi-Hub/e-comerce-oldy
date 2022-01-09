@@ -1,13 +1,14 @@
 <?php
 
-class Usuario{
+class Usuario
+{
   private $id;
   private $nombre;
   private $apellidos;
   private $email;
   private $password;
   private $rol;
-  private $imagen;
+  private $image;
   private $db;
 
   public function __construct()
@@ -17,7 +18,7 @@ class Usuario{
 
   /**
    * Get the value of id
-   */ 
+   */
   public function getId()
   {
     return $this->id;
@@ -27,7 +28,7 @@ class Usuario{
    * Set the value of id
    *
    * @return  self
-   */ 
+   */
   public function setId($id)
   {
     $this->id = $this->db->escape_string($id);
@@ -37,7 +38,7 @@ class Usuario{
 
   /**
    * Get the value of nombre
-   */ 
+   */
   public function getNombre()
   {
     return $this->nombre;
@@ -47,7 +48,7 @@ class Usuario{
    * Set the value of nombre
    *
    * @return  self
-   */ 
+   */
   public function setNombre($nombre)
   {
     $this->nombre = $this->db->escape_string($nombre);
@@ -57,7 +58,7 @@ class Usuario{
 
   /**
    * Get the value of apellidos
-   */ 
+   */
   public function getApellidos()
   {
     return $this->apellidos;
@@ -67,7 +68,7 @@ class Usuario{
    * Set the value of apellidos
    *
    * @return  self
-   */ 
+   */
   public function setApellidos($apellidos)
   {
     $this->apellidos = $this->db->escape_string($apellidos);
@@ -77,7 +78,7 @@ class Usuario{
 
   /**
    * Get the value of email
-   */ 
+   */
   public function getEmail()
   {
     return $this->email;
@@ -87,7 +88,7 @@ class Usuario{
    * Set the value of email
    *
    * @return  self
-   */ 
+   */
   public function setEmail($email)
   {
     $this->email = $this->db->escape_string($email);
@@ -97,17 +98,17 @@ class Usuario{
 
   /**
    * Get the value of password
-   */ 
+   */
   public function getPassword()
   {
-    return password_hash($this->db->escape_string($this->password), PASSWORD_BCRYPT, ['cost'=>4]);
+    return password_hash($this->db->escape_string($this->password), PASSWORD_BCRYPT, ['cost' => 4]);
   }
 
   /**
    * Set the value of password
    *
    * @return  self
-   */ 
+   */
   public function setPassword($password)
   {
     $this->password = $password;
@@ -117,7 +118,7 @@ class Usuario{
 
   /**
    * Get the value of rol
-   */ 
+   */
   public function getRol()
   {
     return $this->rol;
@@ -127,63 +128,65 @@ class Usuario{
    * Set the value of rol
    *
    * @return  self
-   */ 
+   */
   public function setRol($rol)
   {
     $this->rol = $rol;
 
     return $this;
   }
-
   /**
-   * Get the value of imagen
-   */ 
-  public function getImagen()
+   * Get the value of image
+   */
+  public function getImage()
   {
-    return $this->imagen;
+    return $this->image;
   }
 
   /**
-   * Set the value of imagen
+   * Set the value of image
    *
    * @return  self
-   */ 
-  public function setImagen($imagen)
+   */
+  public function setImage($image)
   {
-    $this->imagen = $imagen;
+    $this->image = $image;
 
     return $this;
   }
 
-  public function save(){
-    $sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', NULL)";
+  public function save()
+  {
+    $sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', {$this->getImage()})";
     $save = $this->db->query($sql);
 
-    if($save){
+    if ($save) {
       return true;
-    }else{
+    } else {
       return false;
     }
 
   }
 
-  public function login(){
+  public function login()
+  {
     $email = $this->email;
     $password = $this->password;
 
     $sql = "SELECT * FROM usuarios WHERE email ='{$email}'";
     $login = $this->db->query($sql);
-    if($login->num_rows == 1){
+    if ($login->num_rows == 1) {
       $usuario = $login->fetch_object();
       $verify = password_verify($password, $usuario->password);
-      if($verify){
+      if ($verify) {
         return $usuario;
-      }else{
+      } else {
         return false;
       }
-    }else{
+    } else {
       return false;
     }
 
   }
+
 }
