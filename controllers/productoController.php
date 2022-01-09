@@ -6,6 +6,8 @@ class productoController
 {
   public function index()
   {
+    $B_product = new Product();
+    $products = $B_product->getRandom(6);
     require_once 'views/products/featured.php';
   }
 
