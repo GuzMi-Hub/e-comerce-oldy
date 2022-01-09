@@ -201,14 +201,13 @@ class Product
   public function save()
   {
     $sql = "INSERT INTO productos VALUES(NULL, '{$this->getCategory_id()}','{$this->getName()}', '{$this->getDescription()}', {$this->getPrice()}, {$this->getStock()}, NULL, CURDATE(),'{$this->getImage()}')";
-    $save = $this->db->query($sql);
+    $isSave = $this->db->query($sql);
 
-    if ($save) {
+    if ($isSave) {
       return true;
     } else {
       return false;
     }
-
   }
 
   public function getAll()
@@ -217,4 +216,14 @@ class Product
     return $productos;
   }
 
+  public function delete()
+  {
+    $sql = "DELETE FROM productos WHERE id ={$this->id}";
+    $isDelete = $this->db->query($sql);
+    if ($isDelete) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
