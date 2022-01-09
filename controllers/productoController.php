@@ -36,7 +36,6 @@ class productoController
       $price = isset($_POST['price']) ? $_POST['price'] : false;
       $stock = isset($_POST['stock']) ? $_POST['stock'] : false;
       $category = isset($_POST['category']) ? $_POST['category'] : false;
-      // $image = isset($_POST['image']) ? $_POST['image'] : false;
 
       if ($name && $description && $price && $stock && $category) {
         $product = new Product();
@@ -47,20 +46,29 @@ class productoController
         $product->setCategory_id($category);
 
         // save image
-        $file = $_FILES['image'];
-        $filename = $file['name'];
-        $mimetype = $file['type'];
+        if (isset($_FILES)) {
+          $file = $_FILES['image'];
+          $filename = $file['name'];
+          $mimetype = $file['type'];
 
-        if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png") {
-          if (!is_dir("uploades/images")) {
-            mkdir("uploads/images", 0777, true);
+          if ($mimetype == "image/jpg" || $mimetype == "image/jpeg" || $mimetype == "image/png") {
+            if (!is_dir("uploads/images")) {
+              mkdir("uploads/images", 0777, true);
+            }
+            move_uploaded_file($file['tmp_name'], 'uploads/images/' . $filename);
+            $product->setImage($filename);
           }
-          move_uploaded_file($file['tmp_name'], 'uploads/images/' . $filename);
-          $product->setImage($filename);
         }
 
-        $isSave = $product->save();
-        if ($isSave) {
+        if (isset($_GET['id'])) {
+          $product->setId($_GET['id']);
+          $isUpdate = $product->update();
+          var_dump($isUpdate);
+        } else {
+          $isSave = $product->save();
+        }
+
+        if ($isSave || $isUpdate) {
           $_SESSION['product'] = "complete";
         } else {
           $_SESSION['product'] = "failed";
@@ -76,8 +84,15 @@ class productoController
 
   public function edit()
   {
-    $productoId = $_GET['id'];
-    echo $productoId;
+    $isEdit = "true";
+    if (isset($_GET['id'])) {
+      $productoId = $_GET['id'];
+      $B_product = new Product();
+      $B_product->setId($productoId);
+      $product = $B_product->getById();
+      require_once "./views/products/create.php";
+    }
+
   }
   public function remove()
   {

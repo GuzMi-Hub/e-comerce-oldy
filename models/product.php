@@ -210,10 +210,34 @@ class Product
     }
   }
 
+  public function update()
+  {
+    $sql = "UPDATE productos SET categoria_id = '{$this->getCategory_id()}', nombre = '{$this->getName()}', descripcion = '{$this->getDescription()}', precio = {$this->getPrice()}, stock = {$this->getStock()}, oferta = NULL, fecha = CURDATE()";
+
+    if (!empty($this->getImage())) {
+      $sql .= ", imagen = '{$this->getImage()}' ";
+    }
+    $sql .= "WHERE id = {$this->getid()}";
+
+    $isUpdate = $this->db->query($sql);
+
+    if ($isUpdate) {
+      return true;
+    } else {
+      return $this->db->error;
+    }
+  }
+
   public function getAll()
   {
     $productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
     return $productos;
+  }
+
+  public function getById()
+  {
+    $producto = $this->db->query("SELECT * FROM productos WHERE id = '{$this->getId()}'");
+    return $producto->fetch_object();
   }
 
   public function delete()
