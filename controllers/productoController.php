@@ -11,6 +11,23 @@ class productoController
     require_once 'views/products/featured.php';
   }
 
+  public function show()
+  {
+    if (isset($_GET['id'])) {
+      $productoId = $_GET['id'];
+
+      $B_product = new Product();
+      $B_product->setId($productoId);
+
+      $product = $B_product->getById();
+
+      require_once './views/products/show.php';
+    } else {
+      header('Location:' . base_url . "producto/index");
+    }
+
+  }
+
   public function management()
   {
     Utils::isAdmin();
@@ -86,13 +103,18 @@ class productoController
 
   public function edit()
   {
-    $isEdit = "true";
+    Utils::isAdmin();
     if (isset($_GET['id'])) {
+      $isEdit = "true";
       $productoId = $_GET['id'];
+
       $B_product = new Product();
       $B_product->setId($productoId);
       $product = $B_product->getById();
+
       require_once "./views/products/create.php";
+    } else {
+      header('Location:' . base_url . "producto/management");
     }
 
   }
