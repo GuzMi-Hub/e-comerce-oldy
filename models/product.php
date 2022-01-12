@@ -234,6 +234,12 @@ class Product
     return $productos;
   }
 
+  public function getByCategory()
+  {
+    $products = $this->db->query("SELECT p.* , c.nombre as nombre_categoria FROM productos as p INNER JOIN categorias as c ON p.categoria_id = c.id WHERE p.categoria_id = {$this->getCategory_id()}");
+    return $products;
+  }
+
   public function getRandom($limit)
   {
     $products = $this->db->query("SELECT * FROM productos ORDER BY RAND() LIMIT {$limit}");
