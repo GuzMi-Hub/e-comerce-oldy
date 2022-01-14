@@ -74,4 +74,25 @@ class pedidoController
 
     require_once "./views/pedido/myOrders.php";
   }
+
+  public function details()
+  {
+    Utils::isIdentity();
+
+    if (isset($_GET['id'])) {
+
+      $order_id = $_GET['id'];
+      $B_order = new Order();
+      $B_order->setId($order_id);
+
+      $order = $B_order->getById();
+      $B_order_products = new Order();
+      $products = $B_order_products->getProductByOrder($order->id);
+
+      require_once './views/pedido/details.php';
+    } else {
+      header("Location:" . base_url);
+    }
+
+  }
 }
