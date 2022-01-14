@@ -48,6 +48,17 @@ class pedidoController
   }
   public function confirmed()
   {
+    if (isset($_SESSION['identity'])) {
+      $identity = $_SESSION['identity'];
+      $B_order = new Order();
+      $B_order->setUsuario_id($identity->id);
+
+      $order = $B_order->getByUser();
+
+      $B_order_products = new Order();
+      $products = $B_order_products->getProductByOrder($order->id);
+
+    }
     require_once "./views/pedido/confirmed.php";
   }
 }

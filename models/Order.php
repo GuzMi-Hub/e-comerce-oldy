@@ -241,5 +241,23 @@ class Order
     $order = $this->db->query("SELECT * FROM pedidos WHERE id = '{$this->getId()}'");
     return $order->fetch_object();
   }
+  public function getByUser()
+  {
+    $sql = "SELECT p.id, p.coste FROM pedidos as p"
+      . " WHERE p.usuario_id = {$this->getUsuario_id()} ORDER BY id DESC LIMIT 1";
+    $order = $this->db->query($sql);
+    return $order->fetch_object();
+  }
+
+  public function getProductByOrder($id)
+  {
+    $sql = "SELECT pr.*, lp.unidades FROM productos as pr"
+      . " INNER JOIN lineas_pedidos as lp ON pr.id = lp.producto_id"
+      . " WHERE lp.pedido_id = {$id}";
+
+    $products = $this->db->query($sql);
+
+    return $products;
+  }
 
 }
