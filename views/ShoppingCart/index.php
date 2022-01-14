@@ -10,11 +10,11 @@
   <?php foreach ($shoppingCart as $key => $value):
   $product = $value['product'];
   ?>
-					    <tr>
-					      <td>
-					        <?php if (!empty($product->imagen)): ?>
-					          <img src="<?=base_url . "uploads/images/" . $product->imagen?>" alt="producto" class="img_carrito">
-					        <?php else: ?>
+										    <tr>
+										      <td>
+										        <?php if (!empty($product->imagen)): ?>
+										          <img src="<?=base_url . "uploads/images/" . $product->imagen?>" alt="producto" class="img_carrito">
+										        <?php else: ?>
            <img src="<?=base_url?>/assets/img/camiseta.png" alt="producto" class="img_carrito">
           <?php endif;?>
         </td>
@@ -36,6 +36,6 @@
 
 <div class="total-carrito">
   <?php $stats = Utils::statsCart();?>
-  <h1>Precio total: <?=$stats['total']?></h1>
-  <a href="" class="button">Hacer pedido</a>
+  <h1>Precio total: $<?=$stats['total']?></h1>
+  <a href="<?=base_url . "pedido/realize"?>" class="button">Hacer pedido</a>
 </div>
