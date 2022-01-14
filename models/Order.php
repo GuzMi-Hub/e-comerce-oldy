@@ -249,6 +249,14 @@ class Order
     return $order->fetch_object();
   }
 
+  public function getAllByUser()
+  {
+    $sql = "SELECT p.* FROM pedidos as p"
+      . " WHERE p.usuario_id = {$this->getUsuario_id()} ORDER BY id DESC";
+    $orders = $this->db->query($sql);
+    return $orders;
+  }
+
   public function getProductByOrder($id)
   {
     $sql = "SELECT pr.*, lp.unidades FROM productos as pr"

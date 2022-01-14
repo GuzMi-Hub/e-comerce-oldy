@@ -61,4 +61,17 @@ class pedidoController
     }
     require_once "./views/pedido/confirmed.php";
   }
+
+  public function myOrders()
+  {
+    Utils::isIdentity();
+
+    $usuario_id = $_SESSION['identity']->id;
+    $B_order = new Order();
+
+    $B_order->setUsuario_id($usuario_id);
+    $orders = $B_order->getAllByUser();
+
+    require_once "./views/pedido/myOrders.php";
+  }
 }

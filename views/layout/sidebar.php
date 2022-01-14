@@ -36,7 +36,7 @@
         <li><a href="<?=base_url?>orders/management">Gestionar pedidos</a></li>
       <?php endif?>
       <?php if (isset($_SESSION['identity'])): ?>
-        <li><a href="">Mis pedidos</a></li>
+        <li><a href="<?=base_url . "pedido/myOrders"?>">Mis pedidos</a></li>
         <li><a href="<?=base_url?>usuario/logout">Cerrar Session</a></li>
       <?php endif?>
       </ul>
