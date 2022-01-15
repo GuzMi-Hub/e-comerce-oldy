@@ -268,4 +268,17 @@ class Order
     return $products;
   }
 
+  public function updateStatus()
+  {
+    $sql = "UPDATE pedidos SET estado = '{$this->getEstado()}' WHERE id = {$this->getId()}";
+
+    $isUpdate = $this->db->query($sql);
+
+    if ($isUpdate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

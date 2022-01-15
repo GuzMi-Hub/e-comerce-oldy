@@ -95,4 +95,34 @@ class pedidoController
     }
 
   }
+
+  public function management()
+  {
+    Utils::isAdmin();
+    $management = true;
+
+    $B_order = new Order();
+    $orders = $B_order->getAll();
+
+    require_once 'views/pedido/myOrders.php';
+  }
+
+  public function status()
+  {
+    Utils::isAdmin();
+    if (isset($_POST['order_id'])) {
+      $order_id = $_POST['order_id'];
+      $status = $_POST['status'];
+
+      $B_order = new Order();
+      $B_order->setId($order_id);
+      $B_order->setEstado($status);
+
+      $isUpdate = $B_order->updateStatus();
+      header("Location:" . base_url . "/pedido/details&id=" . $order_id);
+
+    } else {
+      header("Location:" . base_url);
+    }
+  }
 }

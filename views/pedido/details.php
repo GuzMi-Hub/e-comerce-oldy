@@ -1,5 +1,22 @@
   <?php if (isset($order)): ?>
+    <?php if (isset($_SESSION['admin'])): ?>
+      <h3>Cambiar estado del pedido</h3>
+      <form action="<?=base_url . "pedido/status"?>" method="POST">
+        <input type="hidden" value="<?=$order->id?>" name="order_id">
+        <select name="status" id="">
+          <option value="confirm" <?=$order->estado == "confirm" ? "selected" : ""?>>Pendiente</option>
+          <option value="preparation" <?=$order->estado == "preparation" ? "selected" : ""?>>En preparacion</option>
+          <option value="ready" <?=$order->estado == "ready" ? "selected" : ""?>>Preparado para enviar</option>
+          <option value="sended" <?=$order->estado == "sended" ? "selected" : ""?>>Enviado</option>
+        </select>
+        <input type="submit" value="Cambiar estado">
+      </form>
+      <br>
+    <?php endif;?>
+
+
     <h3>Dirección de envio</h3>
+    <p>Estado: <?=Utils::showStatus($order->estado)?></p>
     <p>Provincia: <?=$order->provincia?></p>
     <p>Ciudad: <?=$order->localidad?></p>
     <p>Dirección: <?=$order->direccion?></p>

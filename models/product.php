@@ -224,7 +224,7 @@ class Product
     if ($isUpdate) {
       return true;
     } else {
-      return $this->db->error;
+      return false;
     }
   }
 
