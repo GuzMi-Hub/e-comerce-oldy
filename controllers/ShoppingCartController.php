@@ -7,7 +7,11 @@ class ShoppingCartController
 
   public function index()
   {
-    $shoppingCart = $_SESSION['cart'];
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) >= 1) {
+      $shoppingCart = $_SESSION['cart'];
+    } else {
+      $shoppingCart = array();
+    }
     require_once './views/ShoppingCart/index.php';
   }
 
@@ -47,9 +51,35 @@ class ShoppingCartController
     header("Location:" . base_url . "ShoppingCart/index");
   }
 
-  public function remove()
+  public function delete()
   {
+    if (isset($_GET['index'])) {
+      $index = $_GET['index'];
+      unset($_SESSION['cart'][$index]);
+    }
+    header("Location:" . base_url . "ShoppingCart/index");
+  }
 
+  public function up()
+  {
+    if (isset($_GET['index'])) {
+      $index = $_GET['index'];
+      $_SESSION['cart'][$index]['amount']++;
+    }
+    header("Location:" . base_url . "ShoppingCart/index");
+  }
+
+  public function down()
+  {
+    if (isset($_GET['index'])) {
+      $index = $_GET['index'];
+      $_SESSION['cart'][$index]['amount']--;
+
+      if ($_SESSION['cart'][$index]['amount'] == 0) {
+        unset($_SESSION['cart'][$index]);
+      }
+    }
+    header("Location:" . base_url . "ShoppingCart/index");
   }
 
   public function delete_all()
